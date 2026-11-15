@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <!-- 휴대폰에서도 화면이 알맞게 보이도록 하는 설정 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아이디어 톡 - 학과 행사 아이디어 채팅</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ============================================================
+       화면은 2개: ① 로비(방 목록·생성·입장)  ② 채팅방(대화)
+       app.js 가 hidden 속성을 켜고 끄면서 화면을 바꿔 보여줘.
+       ============================================================ -->
+
+  <header class="top">
+    <h1>💡 아이디어 톡</h1>
+    <p>학과 행사 아이디어를 실시간으로 모으는 채팅방</p>
+  </header>
+
+  <!-- ① 로비 화면 -->
+  <main id="lobby" class="card">
+
+    <!-- 기능 1: 채팅방 생성 -->
+    <section>
+      <h2>새 채팅방 만들기</h2>
+      <form id="create-form" class="row">
+        <!-- maxlength 를 일부러 안 걸었음: 21자 이상 입력 시 서버가 거절하는 '경계 시험'을 하기 위해 -->
+        <input id="room-name" type="text" placeholder="예: 축제 부스 아이디어 (최대 20자)" autocomplete="off">
+        <button type="submit">만들기</button>
+      </form>
+      <p id="create-msg" class="msg"></p>
+    </section>
+
+    <!-- 기능 2: 닉네임 입력 + 방 선택 후 입장 -->
+    <section>
+      <h2>채팅방 입장</h2>
+      <label for="nickname">닉네임 (최대 10자)</label>
+      <input id="nickname" type="text" placeholder="닉네임을 입력하고 아래 방의 [입장]을 누르세요" autocomplete="off">
+      <p id="join-msg" class="msg"></p>
+
+      <h3>채팅방 목록 <span id="room-count" class="muted"></span></h3>
+      <!-- 방 목록은 app.js 가 서버에서 받아와 여기에 채워 넣음 -->
+      <ul id="room-list" class="room-list"></ul>
+    </section>
+  </main>
+
+  <!-- ② 채팅방 화면 (처음엔 숨김) -->
+  <main id="chat" class="card" hidden>
+    <div class="chat-head">
+      <button id="leave-btn" class="ghost" type="button">← 목록</button>
+      <div>
+        <h2 id="chat-title">채팅방</h2>
+        <p id="chat-sub" class="muted"></p>
+      </div>
+    </div>
+
+    <!-- 메시지들이 쌓이는 영역 -->
+    <ul id="messages" class="messages"></ul>
+
+    <!-- 기능 3: 메시지 전송 -->
+    <form id="send-form" class="row">
+      <input id="message-input" type="text" placeholder="메시지 입력 (최대 200자)" autocomplete="off">
+      <button type="submit">전송</button>
+    </form>
+    <p id="send-msg" class="msg"></p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
